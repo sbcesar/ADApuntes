@@ -12,53 +12,53 @@ import kotlin.io.path.notExists
 
 fun main(args: Array<String>) {
 
-    //LECTURA DE FICHEROS XML
-    //EL OBJETIVO ES PARSEAR EL FICHERO XML A ARBOL DOM
-    //1º INSTANCIAR UN OBJETO DocumentBuilderFactory
-    val dbf = DocumentBuilderFactory.newInstance()
-
-    //2º CON EL DBF PODEMOS CREAR UN OBJETO DEL TIPO DocumentBuilder
-    val db = dbf.newDocumentBuilder()
-
-    //3º CUANDO TENEMOS EL DB YA PODEMOS PARSEAR NUESTRO DOCUMENTO (PRIMERO NECESITAMOS EL FILE)
-    val ficheroXML = Path.of("src").resolve("main/resources/productos.xml")
-
-    //AHORA SI PARSEAMOS
-    val document = db.parse(ficheroXML.toFile())
-
-    //DENTRO DE LA LASE DOCUMENT TENEMOS DOS METODOS IMPORTANTES
-    //1 PARA OBTENER EL ELEMENTO ROOT
-    val root = document.documentElement
-
-    //DENTRO DE LA LASE ELEMENT TENEMOS DOS METODOS IMPORTANTES
-    //1 PARA NORMALIZAR EL ARBOL
-    root.normalize()
-
-    //2 PARA OBTENER ELEMENTOS POR SU NOMBRE DE ETIQUETA
-    val listaNodos = root.getElementsByTagName("producto")
-
-    //CUANDO TENEMOS LA NODELIST PODEMOS ITERAR SOBRE ELLA
-    for (i in 0..listaNodos.length) {
-        //PARA OBTENER UN ITEM EN PARTICULAR ACCEDEMOS A TRAVÉS DEL INDEX
-        val nodo = listaNodos.item(i)
-
-        //PARA ACCEDER AL TIPO DE NODO USAMOS .NODETYPE
-        if (nodo.nodeType == Node.ELEMENT_NODE) {
-            //CASTEAMOS A ELEMENT
-            val nodoElemento = nodo as Element
-
-            //PODEMOS BUSCAR LOS ELEMENTOS QUE NOS CONVIENEN
-            val elementoNombre = nodoElemento.getElementsByTagName("nombre")
-            val elementoPrecio = nodoElemento.getElementsByTagName("precio")
-
-            //UNA VEZ TENEMOS EL ELEMENTO QUE QUEREMOS PODEMOS ACCEDER A SU CONTENIDO
-            val textContentNombre = elementoNombre.item(0).textContent
-            val textContentPrecio = elementoPrecio.item(0).textContent.toDouble()
-
-            //IMPRIMO
-            println("Producto ${i}:\n\t - nombre: ${textContentNombre}\n\t - precio ${textContentPrecio}")
-        }
-    }
+//    //LECTURA DE FICHEROS XML
+//    //EL OBJETIVO ES PARSEAR EL FICHERO XML A ARBOL DOM
+//    //1º INSTANCIAR UN OBJETO DocumentBuilderFactory
+//    val dbf = DocumentBuilderFactory.newInstance()
+//
+//    //2º CON EL DBF PODEMOS CREAR UN OBJETO DEL TIPO DocumentBuilder
+//    val db = dbf.newDocumentBuilder()
+//
+//    //3º CUANDO TENEMOS EL DB YA PODEMOS PARSEAR NUESTRO DOCUMENTO (PRIMERO NECESITAMOS EL FILE)
+//    val ficheroXML = Path.of("src").resolve("main/resources/productos.xml")
+//
+//    //AHORA SI PARSEAMOS
+//    val document = db.parse(ficheroXML.toFile())
+//
+//    //DENTRO DE LA LASE DOCUMENT TENEMOS DOS METODOS IMPORTANTES
+//    //1 PARA OBTENER EL ELEMENTO ROOT
+//    val root = document.documentElement
+//
+//    //DENTRO DE LA LASE ELEMENT TENEMOS DOS METODOS IMPORTANTES
+//    //1 PARA NORMALIZAR EL ARBOL
+//    root.normalize()
+//
+//    //2 PARA OBTENER ELEMENTOS POR SU NOMBRE DE ETIQUETA
+//    val listaNodos = root.getElementsByTagName("producto")
+//
+//    //CUANDO TENEMOS LA NODELIST PODEMOS ITERAR SOBRE ELLA
+//    for (i in 0..listaNodos.length) {
+//        //PARA OBTENER UN ITEM EN PARTICULAR ACCEDEMOS A TRAVÉS DEL INDEX
+//        val nodo = listaNodos.item(i)
+//
+//        //PARA ACCEDER AL TIPO DE NODO USAMOS .NODETYPE
+//        if (nodo.nodeType == Node.ELEMENT_NODE) {
+//            //CASTEAMOS A ELEMENT
+//            val nodoElemento = nodo as Element
+//
+//            //PODEMOS BUSCAR LOS ELEMENTOS QUE NOS CONVIENEN
+//            val elementoNombre = nodoElemento.getElementsByTagName("nombre")
+//            val elementoPrecio = nodoElemento.getElementsByTagName("precio")
+//
+//            //UNA VEZ TENEMOS EL ELEMENTO QUE QUEREMOS PODEMOS ACCEDER A SU CONTENIDO
+//            val textContentNombre = elementoNombre.item(0).textContent
+//            val textContentPrecio = elementoPrecio.item(0).textContent.toDouble()
+//
+//            //IMPRIMO
+//            println("Producto ${i}:\n\t - nombre: ${textContentNombre}\n\t - precio ${textContentPrecio}")
+//        }
+//    }
 
 
 
