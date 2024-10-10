@@ -1,16 +1,62 @@
 package com.es.tema1
 
-import org.w3c.dom.Node
-import java.nio.file.Files
 import java.nio.file.Path
-import java.nio.file.StandardCopyOption
-import org.w3c.dom.Element
-import java.io.File
 import javax.xml.parsers.DocumentBuilderFactory
-import kotlin.io.path.notExists
+import javax.xml.transform.OutputKeys
+import javax.xml.transform.Transformer
+import javax.xml.transform.TransformerFactory
+import javax.xml.transform.dom.DOMSource
+import javax.xml.transform.stream.StreamResult
 
 
 fun main(args: Array<String>) {
+
+    val factory = DocumentBuilderFactory.newInstance()
+    val builder = factory.newDocumentBuilder()
+    val imp = builder.domImplementation
+
+    //Asigna el nodo padre a una variable
+    val document = imp.createDocument(null,"productos",null)
+    //creamos el element
+    val producto1 = document.createElement("producto")
+    document.documentElement.appendChild(producto1)
+
+    val nombreP1 = document.createElement("nombre")
+    val precioP1 = document.createElement("precio")
+
+    val textoNombreP1 = document.createTextNode("Agua")
+    val textoPrecioP1 = document.createTextNode("1.50")
+
+    //Unimos el texto al elemento
+    nombreP1.appendChild(textoNombreP1)
+    precioP1.appendChild(textoPrecioP1)
+
+    //Unimos el nombre y el precio al producto
+    producto1.appendChild(nombreP1)
+    producto1.appendChild(precioP1)
+
+    //--------------------------------------------------------------
+    val producto2 = document.createElement("producto")
+    document.documentElement.appendChild(producto2)
+
+    val nombreP2 = document.createElement("nombre")
+    val precioP2 = document.createElement("precio")
+
+    val textoNombreP2 = document.createTextNode("Manga")
+    val textoPrecioP2 = document.createTextNode("8.98")
+
+    nombreP2.appendChild(textoNombreP2)
+    precioP2.appendChild(textoPrecioP2)
+
+    producto2.appendChild(nombreP2)
+    producto2.appendChild(precioP2)
+
+    val source = DOMSource(document)
+    val result = StreamResult(Path.of("src/main/resources/productosWrite.xml").toFile())
+    val transformer = TransformerFactory.newInstance().newTransformer()
+
+    transformer.setOutputProperty(OutputKeys.INDENT,"yes")
+    transformer.transform(source,result)
 
 //    //LECTURA DE FICHEROS XML
 //    //EL OBJETIVO ES PARSEAR EL FICHERO XML A ARBOL DOM
